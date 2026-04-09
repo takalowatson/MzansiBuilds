@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Celebration Wall</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="register.html">Register</a>
+        <a href="login.html">Login</a>
+        <a href="create.html">Create</a>
+        <a href="celebration.html">Celebration</a>
+    </nav>
+
+    <div class="container">
+        <h2>Celebration Wall 🎉</h2>
+        <div id="wall"></div>
+    </div>
+
+    <script>
+const API = window.location.origin + "/api";
+
+async function loadCelebration(){
+    const res = await fetch(`${API}/projects/celebration`);
+    const projects = await res.json();
+
+    const wall = document.getElementById("wall");
+    wall.innerHTML = "";
+
+    projects.forEach(p => {
+        wall.innerHTML += `
+            <div class="card">
+                <h3>${p.title} ✅</h3>
+                <p>${p.description}</p>
+            </div>
+        `;
+    });
+}
+
+loadCelebration();
+    </script>
+
+</body>
+</html>

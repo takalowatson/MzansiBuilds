@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>MzansiBuilds - Home</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Project Feed</h2>
+        <div id="feed"></div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <a href="index.html"><i data-feather="home"></i></a>
+        <a href="create.html"><i data-feather="plus-circle"></i></a>
+        <a href="profile.html"><i data-feather="user"></i></a>
+    </div>
+
+    <script>
+        feather.replace();
+
+        const API = window.location.origin + "/api";
+
+        // 🔐 Protect page
+        if (!localStorage.getItem("user")) {
+            window.location.href = "login.html";
+        }
+
+        async function loadFeed() {
+            const res = await fetch(`${API}/projects`);
+            const projects = await res.json();
+
+            const feed = document.getElementById("feed");
+            feed.innerHTML = "";
+
+            projects.forEach(p => {
+                feed.innerHTML += `
+            <div class="card ${p.status === "completed" ? "completed" : ""}">
+                <h3>${p.title}</h3>
+                <p>${p.description}</p>
+                <p><b>Stage:</b> ${p.stage}</p>
+                <p><b>Support:</b> ${p.support}</p>
+                <p><b>Milestones:</b> ${p.milestones.join(", ")}</p>
+                <p><b>Comments:</b> ${p.comments.join(", ")}</p>
+
+                <button onclick="addComment(${p.id})">💬</button>
+                <button onclick="addMilestone(${p.id})">📈</button>
+                <button onclick="completeProject(${p.id})">✅</button>
+            </div>
+            `;
+            });
+        }
+
+        async function addComment(id) {
+            await fetch(`${API}/projects/${id}/comment`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify("Nice work!")
+            });
+            loadFeed();
+        }
+
+        async function addMilestone(id) {
+            await fetch(`${API}/projects/${id}/milestone`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify("Progress made")
+            });
+            loadFeed();
+        }
+
+        async function completeProject(id) {
+            await fetch(`${API}/projects/${id}/complete`, { method: "POST" });
+            loadFeed();
+        }
+
+        loadFeed();
+    </script>
+
+</body>
+</html>

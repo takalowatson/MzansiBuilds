@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="container">
+        <div class="card">
+            <h2>Login</h2>
+
+            <input id="username" placeholder="Username">
+            <input id="password" type="password" placeholder="Password">
+
+            <button onclick="login()">Login</button>
+
+            <!-- 👇 New user section -->
+            <p style="margin-top:15px;">
+                Don’t have an account?
+                <a href="register.html" style="color:#1abc9c;">Register here</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const API = window.location.origin + "/api";
+
+        async function login() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            if (!username || !password) {
+                alert("Please enter username and password");
+                return;
+            }
+
+            const res = await fetch(`${API}/users/login`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username, password })
+            });
+
+            if (res.ok) {
+                const user = await res.json();
+                localStorage.setItem("user", JSON.stringify(user));
+
+                // ✅ Redirect to home
+                window.location.href = "index.html";
+            } else {
+                // 👇 Better UX message
+                const goRegister = confirm("User not found. Do you want to register?");
+
+                if (goRegister) {
+                    window.location.href = "register.html";
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Project</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="card">
+            <h2>Create Project</h2>
+
+            <input id="title" placeholder="Project Title">
+            <input id="description" placeholder="Description">
+            <input id="stage" placeholder="Stage (e.g. Idea, Development)">
+            <input id="support" placeholder="Support needed">
+
+            <button onclick="createProject()">Create Project</button>
+        </div>
+
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <a href="index.html"><i data-feather="home"></i></a>
+        <a href="create.html"><i data-feather="plus-circle"></i></a>
+        <a href="profile.html"><i data-feather="user"></i></a>
+    </div>
+
+    <script>
+        feather.replace();
+
+        const API = window.location.origin + "/api";
+
+        // 🔐 Protect page (must be logged in)
+        const user = localStorage.getItem("user");
+
+        if (!user) {
+            alert("Please login first");
+            window.location.href = "login.html";
+        }
+
+        // 🚀 Create project
+        async function createProject() {
+            const title = document.getElementById("title").value;
+            const description = document.getElementById("description").value;
+            const stage = document.getElementById("stage").value;
+            const support = document.getElementById("support").value;
+
+            if (!title || !description) {
+                alert("Please fill in required fields");
+                return;
+            }
+
+            await fetch(`${API}/projects`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    title,
+                    description,
+                    stage,
+                    support
+                })
+            });
+
+            alert("Project created successfully!");
+
+            // Redirect to feed after creating
+            window.location.href = "index.html";
+        }
+    </script>
+
+</body>
+</html>
