@@ -15,7 +15,7 @@
 
             <button onclick="login()">Login</button>
 
-            <!-- 👇 New user section -->
+            <!-- New user section -->
             <p style="margin-top:15px;">
                 Don’t have an account?
                 <a href="register.html" style="color:#1abc9c;">Register here</a>
@@ -45,10 +45,10 @@
                 const user = await res.json();
                 localStorage.setItem("user", JSON.stringify(user));
 
-                // ✅ Redirect to home
-                window.location.href = "index.html";
+              
+                window.location.href = "home.html";
             } else {
-                // 👇 Better UX message
+                
                 const goRegister = confirm("User not found. Do you want to register?");
 
                 if (goRegister) {

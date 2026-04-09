@@ -26,7 +26,7 @@
 
     <!-- Bottom Navigation -->
     <div class="bottom-nav">
-        <a href="index.html"><i data-feather="home"></i></a>
+        <a href="home.html"><i data-feather="home"></i></a>
         <a href="create.html"><i data-feather="plus-circle"></i></a>
         <a href="profile.html"><i data-feather="user"></i></a>
     </div>
@@ -36,7 +36,7 @@
 
         const API = window.location.origin + "/api";
 
-        // 🔐 Protect page (must be logged in)
+        //  Protect page
         const user = localStorage.getItem("user");
 
         if (!user) {
@@ -44,7 +44,7 @@
             window.location.href = "login.html";
         }
 
-        // 🚀 Create project
+        
         async function createProject() {
             const title = document.getElementById("title").value;
             const description = document.getElementById("description").value;
@@ -70,7 +70,7 @@
             alert("Project created successfully!");
 
             // Redirect to feed after creating
-            window.location.href = "index.html";
+            window.location.href = "home.html";
         }
     </script>
 

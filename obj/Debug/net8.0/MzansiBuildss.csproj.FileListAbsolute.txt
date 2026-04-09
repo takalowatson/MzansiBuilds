@@ -30,3 +30,4 @@ C:\Users\WATSON\source\repos\MzansiBuildss\obj\Debug\net8.0\MzansiBuildss.pdb
 C:\Users\WATSON\source\repos\MzansiBuildss\obj\Debug\net8.0\MzansiBuildss.genruntimeconfig.cache
 C:\Users\WATSON\source\repos\MzansiBuildss\obj\Debug\net8.0\ref\MzansiBuildss.dll
 C:\Users\WATSON\source\repos\MzansiBuildss\bin\Debug\net8.0\MzansiBuildss.staticwebassets.runtime.json
+C:\Users\WATSON\source\repos\MzansiBuildss\obj\Debug\net8.0\MzansiBuildss.sourcelink.json

@@ -1,6 +1,6 @@
 wwwroot\ui\Celebration.html
 wwwroot\ui\Create.html
-wwwroot\ui\index.html
+wwwroot\ui\Home.html
 wwwroot\ui\Profile.html
 wwwroot\ui\Register.html
 wwwroot\ui\styles.css
